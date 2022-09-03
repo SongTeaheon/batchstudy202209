@@ -1,0 +1,15 @@
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/product
+    username: user
+    password: pwd
+  batch:
+    job:
+      name: fileCreateJob
+    jdbc:
+      initialize-schema: always
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type: TRACE
