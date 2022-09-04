@@ -13,7 +13,6 @@ import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
 
 import com.song.study.batch20220902.job.simple.item.FileCreateItem;
 import com.song.study.batch20220902.service.ArticleService;
@@ -24,34 +23,34 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
-public class FileCreateJobConfig {
+public class LogJobConfig {
 
-    private static final String JOB_NAME = "fileCreateJob";
+    private static final String JOB_NAME = "logJob";
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final ArticleService articleService;
 
     @Bean
-    public Job fileCreateJob() {
+    public Job logJob() {
         return jobBuilderFactory.get(JOB_NAME)
                                 .incrementer(new RunIdIncrementer())
-                                .start(fileCreateStep())
+                                .start(logStep())
                                 .build();
     }
 
     @Bean
-    public Step fileCreateStep() {
-        return stepBuilderFactory.get("fileCreateStep")
+    public Step logStep() {
+        return stepBuilderFactory.get("logStep")
             .<FileCreateItem, FileCreateItem>chunk(2)
-            .reader(fileCreateReader())
-            .processor(fileCreateProcessor())
-            .writer(fileCreateWriter())
+            .reader(logReader())
+            .processor(logProcessor())
+            .writer(logWriter())
             .build();
     }
 
     @Bean
-    public ItemReader<FileCreateItem> fileCreateReader() {
+    public ItemReader<FileCreateItem> logReader() {
         List<FileCreateItem> allArticles = articleService.getAllArticles();
         for (FileCreateItem allArticle : allArticles) {
             log.info("allArticles : " + allArticle.getName());
@@ -61,7 +60,7 @@ public class FileCreateJobConfig {
     }
 
     @Bean
-    public ItemProcessor<FileCreateItem, FileCreateItem> fileCreateProcessor() {
+    public ItemProcessor<FileCreateItem, FileCreateItem> logProcessor() {
         return item -> {
             log.info("[process] fileCreateItem name: {}, age: {}", item.getName(), item.getAge());
             return item;
@@ -69,7 +68,7 @@ public class FileCreateJobConfig {
     }
 
     @Bean
-    public ItemWriter<FileCreateItem> fileCreateWriter() {
+    public ItemWriter<FileCreateItem> logWriter() {
         return items -> {
             for (FileCreateItem item : items) {
                 log.info("[write] fileCreateItem name: {}, age: {}", item.getName(), item.getAge());
