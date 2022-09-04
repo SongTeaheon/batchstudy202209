@@ -15,7 +15,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.song.study.batch20220902.job.simple.item.FileCreateItem;
-import com.song.study.batch20220902.service.ArticleService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +28,6 @@ public class LogJobConfig {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
-    private final ArticleService articleService;
 
     @Bean
     public Job logJob() {
@@ -51,12 +49,11 @@ public class LogJobConfig {
 
     @Bean
     public ItemReader<FileCreateItem> logReader() {
-        List<FileCreateItem> allArticles = articleService.getAllArticles();
-        for (FileCreateItem allArticle : allArticles) {
-            log.info("allArticles : " + allArticle.getName());
-        }
-
-        return new ListItemReader<>(allArticles);
+        return new ListItemReader<>(List.of(
+            FileCreateItem.builder().name("song").age(1L).build(),
+            FileCreateItem.builder().name("kim").age(2L).build(),
+            FileCreateItem.builder().name("jung").age(3L).build()
+        ));
     }
 
     @Bean
