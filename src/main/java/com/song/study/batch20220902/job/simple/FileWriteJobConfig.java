@@ -92,8 +92,8 @@ public class FileWriteJobConfig {
 //            .delimited().delimiter(",").names("name", "age") // 객체의 필드들을 설정
 
             .build();
-
     }
+
     @Bean
     @StepScope
     public FlatFileHeaderCallback columnHeaderCallback() {
