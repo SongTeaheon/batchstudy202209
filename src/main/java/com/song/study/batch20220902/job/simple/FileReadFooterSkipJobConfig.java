@@ -2,7 +2,6 @@ package com.song.study.batch20220902.job.simple;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.List;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -12,13 +11,10 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.file.FlatFileItemReader;
-import org.springframework.batch.item.file.LineMapper;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
-import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -26,22 +22,21 @@ import org.springframework.core.io.ClassPathResource;
 import com.song.study.batch20220902.config.FooterSkipLineMapper;
 import com.song.study.batch20220902.job.simple.item.FileCreateItem;
 
-import lombok.Builder.Default;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
-public class FileReadJobConfig {
+public class FileReadFooterSkipJobConfig {
 
-    private static final String JOB_NAME = "fileReadJob";
+    private static final String JOB_NAME = "FileReadFooterSkipJob";
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
 
     @Bean
-    public Job fileReadJob() {
+    public Job fileReadFooterSkipJob() {
         return jobBuilderFactory.get(JOB_NAME)
                                 .incrementer(new RunIdIncrementer())
                                 .start(fileReadStep())
