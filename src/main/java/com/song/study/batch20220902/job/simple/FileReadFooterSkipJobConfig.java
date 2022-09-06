@@ -72,7 +72,6 @@ public class FileReadFooterSkipJobConfig {
     }
 
     private DefaultLineMapper<FileCreateItem> makeFileCreateItemDefaultLineMapper() {
-        DefaultLineMapper<FileCreateItem> lineMapper = new DefaultLineMapper<>();
 
         BeanWrapperFieldSetMapper<FileCreateItem> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
         fieldSetMapper.setTargetType(FileCreateItem.class);
@@ -80,6 +79,7 @@ public class FileReadFooterSkipJobConfig {
         DelimitedLineTokenizer tokenizer = new DelimitedLineTokenizer();
         tokenizer.setNames("name", "age");
 
+        DefaultLineMapper<FileCreateItem> lineMapper = new DefaultLineMapper<>();
         lineMapper.setFieldSetMapper(fieldSetMapper);
         lineMapper.setLineTokenizer(tokenizer);
         return lineMapper;
