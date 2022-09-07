@@ -6,7 +6,7 @@ spring:
     password: pwd
   batch:
     job:
-      names: simpleFileReadJob
+      names: manualFileWriteJob
     jdbc:
       initialize-schema: always
 logging:
