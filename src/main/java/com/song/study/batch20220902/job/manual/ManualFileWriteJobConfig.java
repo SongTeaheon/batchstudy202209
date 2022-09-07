@@ -29,6 +29,8 @@ public class ManualFileWriteJobConfig {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
 
+    private final ManualFileWriteWriter manualFileWriteWriter;
+
     @Bean
     public Job manualFileWriteJob() {
         return jobBuilderFactory.get(JOB_NAME)
@@ -43,7 +45,7 @@ public class ManualFileWriteJobConfig {
                                  .<ManualItem, ManualItem>chunk(2)
                                  .reader(manualFileWriteReader())
                                  .processor(manualFileWriteProcessor())
-                                 .writer(logWriterWriter())
+                                 .writer(manualFileWriteWriter)
                                  .build();
     }
 
@@ -62,10 +64,5 @@ public class ManualFileWriteJobConfig {
             log.info("[process] ManualItem name: {}, age: {}", item.getName(), item.getAge());
             return item;
         };
-    }
-
-    @Bean
-    public ItemWriter<ManualItem> logWriterWriter() {
-        return new ManualFileWriteWriter();
     }
 }
