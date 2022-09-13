@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class ManualFooter {
+public class ManualFooter implements CsvLine {
 
     private Long count;
 }

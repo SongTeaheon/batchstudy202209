@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class ManualItem {
+public class ManualItem implements CsvLine {
 
     private String name;
     private Long age;

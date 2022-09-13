@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class ManualHeader {
+public class ManualHeader implements CsvLine {
 
     private String description;
 }
