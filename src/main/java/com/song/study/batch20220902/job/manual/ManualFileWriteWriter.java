@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
 
+import com.song.study.batch20220902.job.manual.item.CsvLine;
 import com.song.study.batch20220902.job.manual.item.ManualFooter;
 import com.song.study.batch20220902.job.manual.item.ManualHeader;
 import com.song.study.batch20220902.job.manual.item.ManualItem;
@@ -27,12 +28,12 @@ import lombok.extern.slf4j.Slf4j;
 @StepScope
 public class ManualFileWriteWriter implements ItemWriter<ManualItem>, ItemStream {
 
-    private FlatFileItemWriter<Object> writer;
+    private FlatFileItemWriter<CsvLine> writer;
     private StepExecution stepExecution;
 
     public ManualFileWriteWriter(@Value("#{stepExecution}") StepExecution stepExecution) {
         this.stepExecution = stepExecution;
-        writer = new FlatFileItemWriterBuilder<>()
+        writer = new FlatFileItemWriterBuilder<CsvLine>()
             .name("fileWriteWriter")
             .resource(new FileSystemResource("src/main/resources/test_manual.csv"))
             .append(false)
@@ -56,10 +57,6 @@ public class ManualFileWriteWriter implements ItemWriter<ManualItem>, ItemStream
         writer.write(items);
     }
 
-    /**
-     * @param executionContext
-     * @throws ItemStreamException
-     */
     @SneakyThrows
     @Override
     public void open(ExecutionContext executionContext) {
@@ -68,18 +65,11 @@ public class ManualFileWriteWriter implements ItemWriter<ManualItem>, ItemStream
         writer.write(List.of(ManualHeader.builder().description("test header").build()));
     }
 
-    /**
-     * @param executionContext
-     * @throws ItemStreamException
-     */
     @Override
     public void update(ExecutionContext executionContext) {
         log.info("ManualFileWriteWriter update");
     }
 
-    /**
-     * @throws ItemStreamException
-     */
     @SneakyThrows
     @Override
     public void close() {
@@ -88,9 +78,9 @@ public class ManualFileWriteWriter implements ItemWriter<ManualItem>, ItemStream
         writer.close();
     }
 
-    private static class ManualFileAggregator implements LineAggregator<Object> {
+    private static class ManualFileAggregator implements LineAggregator<CsvLine> {
         @Override
-        public String aggregate(Object item) {
+        public String aggregate(CsvLine item) {
 
             if (item instanceof ManualHeader header) {
                 return header.getDescription();
