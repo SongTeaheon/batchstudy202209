@@ -19,7 +19,7 @@ public class Batch20220902Application {
 		String[] newArgs = Arrays.copyOf(args, args.length + 1);
 		newArgs[newArgs.length - 1] = "currentDate=" + LocalDateTime.now();
 
-		SpringApplication.run(Batch20220902Application.class, newArgs);
+		SpringApplication.run(Batch20220902Application.class, args);
 	}
 
 }
