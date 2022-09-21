@@ -7,6 +7,7 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
@@ -14,6 +15,7 @@ import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.song.study.batch20220902.job.file.FileMoveTasklet;
 import com.song.study.batch20220902.job.manual.item.ManualItem;
 
 import lombok.RequiredArgsConstructor;
@@ -36,6 +38,7 @@ public class ManualFileWriteJobConfig {
         return jobBuilderFactory.get(JOB_NAME)
                                 .incrementer(new RunIdIncrementer())
                                 .start(manualFileWriteStep())
+                                .next(fileMoveTasklet())
                                 .build();
     }
 
@@ -56,6 +59,14 @@ public class ManualFileWriteJobConfig {
             ManualItem.builder().name("kim").age(2L).build(),
             ManualItem.builder().name("jung").age(3L).build()
         ));
+    }
+
+    @Bean
+    public Step fileMoveTasklet() {
+        return stepBuilderFactory.get("fileMoveTasklet")
+                                 .tasklet(new FileMoveTasklet("src/main/resources/test_manual.csv",
+                                                              "src/main/resources/test/test_manual.csv"))
+                                 .build();
     }
 
     @Bean
