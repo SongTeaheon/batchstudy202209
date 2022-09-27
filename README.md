@@ -8,6 +8,9 @@
 -- chunk size를 1로 해야 정확히 실패한 곳부터 read하고, chunk size가 크면, chunk size 실패한 곳부터 실행하게 됨.
 - 파일 관련 step 만들기. move, copy
 - encoding 테스트
+-- encoding은 호환성 관련 문제임!! 어떤 인코딩으로 이 파일을 만들었는가. 혹은 어떤 인코딩으로 읽을 예정인가에 따라서 다른 encoding으로 해야함.
+-- 참고: utf8 중 일부 문자열은 4바이트로 되어 있는데, mysql의 경우, utf를 3바이트로 저장해서 4바이트 이모티콘을 저장하려고 하면 ??로 저장된다고 함.
+--- replace해서 없애거나, utf8mb4를 사용해야함.
 - fixed 파일 read, write
 
 DB

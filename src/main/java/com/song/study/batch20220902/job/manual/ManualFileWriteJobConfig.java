@@ -7,10 +7,8 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,9 +53,9 @@ public class ManualFileWriteJobConfig {
     @Bean
     public ItemReader<ManualItem> manualFileWriteReader() {
         return new ListItemReader<>(List.of(
-            ManualItem.builder().name("song").age(1L).build(),
-            ManualItem.builder().name("kim").age(2L).build(),
-            ManualItem.builder().name("jung").age(3L).build()
+            ManualItem.builder().name("❎➿\uD83D\uDCEA").age(1L).build(),
+            ManualItem.builder().name("쀍Ü").age(2L).build(),
+            ManualItem.builder().name("( ･ิ ͜ʖ ･ิ) 복학생").age(3L).build()
         ));
     }
 
