@@ -1,6 +1,5 @@
 package com.song.study.batch20220902.job.manual;
 
-import java.lang.reflect.Field;
 import java.nio.file.Files;
 
 import org.springframework.batch.core.StepExecution;
@@ -11,15 +10,9 @@ import org.springframework.batch.item.ItemStream;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.LineMapper;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
-import org.springframework.batch.item.file.mapping.FieldSetMapper;
-import org.springframework.batch.item.file.transform.DefaultFieldSet;
-import org.springframework.batch.item.file.transform.FieldSet;
-import org.springframework.batch.item.file.transform.LineTokenizer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ReflectionUtils;
-import org.springframework.validation.BindException;
 
 import com.song.study.batch20220902.job.manual.item.CsvLine;
 import com.song.study.batch20220902.job.manual.item.ManualFooter;

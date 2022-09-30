@@ -27,6 +27,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.batch:spring-batch-test'
 	runtimeOnly 'mysql:mysql-connector-java'
+	implementation 'org.mybatis:mybatis:3.5.11'
+	implementation 'org.mybatis:mybatis-spring:2.0.7'
 }
 
 tasks.named('test') {
