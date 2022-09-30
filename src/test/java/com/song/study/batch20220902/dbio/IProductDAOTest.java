@@ -18,7 +18,10 @@ class IProductDAOTest {
     private IProductDAO iProductDAO;
 
     @Test
-    void findAll() {
+    void insertAndFindAll() {
+
+        iProductDAO.insert(Product.builder().id(5L).name("c").build());
+
         for (Product product : iProductDAO.findAll()) {
             log.info("product: {}, {}", product.getId(), product.getName());
         }

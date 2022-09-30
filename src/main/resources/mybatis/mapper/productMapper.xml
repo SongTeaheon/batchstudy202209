@@ -8,4 +8,8 @@
   <select id="findAll" resultType="com.song.study.batch20220902.dbio.domain.Product">
     select id, name from product
   </select>
+
+  <insert id="insert">
+    INSERT INTO product (id, name) VALUES (#{id}, #{name})
+  </insert>
 </mapper>

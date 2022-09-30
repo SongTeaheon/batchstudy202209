@@ -11,4 +11,5 @@ import com.song.study.batch20220902.dbio.domain.Product;
 @Mapper
 public interface IProductDAO {
     List<Product> findAll();
+    void insert(Product product);
 }
