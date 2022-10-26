@@ -15,10 +15,14 @@
 
 DB
 - MyBatis 붙여보기 + iterator
+1. scanMapper annotation
+2. xml
+3. sqlSessionFactory Bean
+4. DBIO interface
 - Read Write
 
 트랜잭션
-- 트랜잭션 테스트 (required, nested, new)
+- 트랜잭션 테스트 (required, nested, new, batch)
 
 병렬처리
 - 파티셔닝
